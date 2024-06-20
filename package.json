@@ -1,0 +1,51 @@
+{
+	"name": "production-ready-react-webpack",
+	"version": "1.0.0",
+	"description": "A concept project to learn how to properly setup webpack for react from scratch which is production ready with optimized bundle sizes.",
+	"main": "index.js",
+	"scripts": {
+		"start": "cross-env NODE_ENV=development webpack serve --mode development --config webpack.dev.js --progress",
+		"build:dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.dev.js --progress",
+		"build:prod": "cross-env NODE_ENV=production webpack --mode production --config webpack.prod.js --progress",
+		"format": "./node_modules/.bin/prettier --no-editorconfig --write .",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rhtsid18-dev/production-ready-react-webpack.git"
+	},
+	"author": "Rohit Sidhwani",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/rhtsid18-dev/production-ready-react-webpack/issues"
+	},
+	"homepage": "https://github.com/rhtsid18-dev/production-ready-react-webpack#readme",
+	"devDependencies": {
+		"@babel/cli": "7.24.7",
+		"@babel/core": "7.24.7",
+		"@babel/preset-env": "7.24.7",
+		"babel-loader": "9.1.3",
+		"clean-webpack-plugin": "4.0.0",
+		"core-js": "3.37.1",
+		"cross-env": "7.0.3",
+		"css-loader": "7.1.2",
+		"css-minimizer-webpack-plugin": "7.0.0",
+		"eslint": "^8.57.0",
+		"eslint-plugin-import": "2.29.1",
+		"eslint-plugin-react": "^7.34.3",
+		"eslint-webpack-plugin": "4.2.0",
+		"globals": "^15.6.0",
+		"html-webpack-plugin": "5.6.0",
+		"lodash": "4.17.21",
+		"mini-css-extract-plugin": "2.9.0",
+		"moment": "2.30.1",
+		"prettier": "3.3.2",
+		"sass": "1.77.6",
+		"sass-loader": "14.2.1",
+		"style-loader": "4.0.0",
+		"webpack": "5.92.1",
+		"webpack-cli": "5.1.4",
+		"webpack-dev-server": "5.0.4",
+		"webpack-merge": "5.10.0"
+	}
+}
