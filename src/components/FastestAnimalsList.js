@@ -1,7 +1,7 @@
 // FastestAnimalsList.js
 import { fastestAnimals } from './Data';
 import moment from 'moment';
-import { forEach } from 'lodash';
+import forEach from 'lodash/forEach';
 
 export const getFastestAnimalsList = () => {
     const listContainer = document.createElement('div');

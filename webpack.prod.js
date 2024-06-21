@@ -5,17 +5,51 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const isStats = process.env.STATS === 'true';
+const mode = process.env.ANALYZE ?? 'disabled';
+
+// https://webpack.js.org/plugins/split-chunks-plugin/#splitchunksname
+const uniqueName = (module, chunks, cacheGroupKey) => {
+    const allChunksNames = chunks.map((item) => item.name).join('~');
+    return `${cacheGroupKey}-${allChunksNames}`;
+}
 
 const prodConfig = {
     optimization: {
-        minimize: false,
+        minimize: true,
         minimizer: [
             new CssMinimizerPlugin(),
             new TerserPlugin({
                 parallel: 4,
             }),
         ],
-        splitChunks: false,
+        splitChunks:{
+            chunks: 'all',
+            minSize: 0,
+            cacheGroups: {
+                defaultVendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    reuseExistingChunk: true,
+                },
+                asyncVendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 10,
+                    reuseExistingChunk: true,
+                    chunks: 'async',
+                    name: (module, chunks, cacheGroupKey) => uniqueName(module, chunks, cacheGroupKey)
+                },
+                default: {
+                    priority: -20,
+                    reuseExistingChunk: true,
+                    minChunks: 2,
+                },
+            },
+        },
+        chunkIds: 'deterministic',
+        runtimeChunk: 'single',
+        moduleIds: 'deterministic'
     },
     devtool: false,
     module: {
@@ -53,8 +87,12 @@ const prodConfig = {
     plugins: [
         // https://webpack.js.org/plugins/mini-css-extract-plugin/#advanced-configuration-example
         new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[name].chunk.css',
+            filename: '[name].[contenthash].css',
+            chunkFilename: '[name].[contenthash].chunk.css',
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: mode,
+            generateStatsFile: isStats
         }),
         new ESLintPlugin({
             failOnError: true,

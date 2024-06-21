@@ -1,7 +1,7 @@
 // MostPoisonousAnimalsList.js
 import { mostPoisonousAnimals } from './Data';
 import moment from 'moment';
-import { forEach } from 'lodash';
+import forEach from 'lodash/forEach';
 
 export const getMostPoisonousAnimalsList = () => {
     const listContainer = document.createElement('div');

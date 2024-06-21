@@ -2,14 +2,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { ContextReplacementPlugin } = require('webpack');
 
 module.exports = {
     entry: {
         main: './src/index.js',
     },
     output: {
-        filename: '[name]-init.js',
-        chunkFilename: '[name]-async.js',
+        filename: '[name].[contenthash]-init.js',
+        chunkFilename: '[name].[contenthash]-async.js',
         path: path.resolve(__dirname, 'build'),
     },
     module: {
@@ -33,5 +34,6 @@ module.exports = {
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
+        new ContextReplacementPlugin(/moment[/\\]locale$/, /(en-gb)$/),
     ],
 };

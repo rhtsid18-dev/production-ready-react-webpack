@@ -1,6 +1,7 @@
 // LongestLivingAnimalsList.js
 import { longestLivingAnimals } from './Data';
-import { forEach, sortBy } from 'lodash';
+import forEach from 'lodash/forEach';
+import sortBy from 'lodash/sortBy';
 
 export default () => {
     const listContainer = document.createElement('div');
